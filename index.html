@@ -1,729 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Nucleus Tech Solution — Where Ideas Evolve Into Solutions</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
-<style>
-:root{--navy:#0f1f35;--navy-d:#0a1525;--navy-m:#1d3352;--blue:#1a78c2;--blue-d:#1460a0;--blue-l:#3a94e0;--blue-pale:#e8f2fc;--sky:#2ab0e8;--dark:#0c1824;--body:#1e2d3d;--muted:#5a7490;--border:rgba(26,120,194,.14);--white:#fff;--off:#f4f8fd;--gold:#d4a017;--gold-l:#f0c040;--green:#2d8a5f;--green-l:#3dba7e;}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;color:var(--body);background:var(--white);overflow-x:hidden}
-h1,h2,h3,h4{font-family:'Fraunces',serif}a{text-decoration:none}img{display:block;max-width:100%}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px}
-.container{max-width:1240px;margin:0 auto;padding:0 36px}
-.tag{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;padding:5px 14px;border-radius:20px}
-.tag-blue{color:var(--blue);background:var(--blue-pale);border:1px solid rgba(26,120,194,.2)}
-.tag-white{color:rgba(255,255,255,.8);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
-.tag-sky{color:var(--sky);background:rgba(42,176,232,.1);border:1px solid rgba(42,176,232,.25)}
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:700;border:none;cursor:pointer;transition:all .22s;text-decoration:none;white-space:nowrap}
-.btn-blue{background:var(--blue);color:#fff;padding:14px 32px;border-radius:8px;font-size:.93rem;box-shadow:0 6px 20px rgba(26,120,194,.32)}
-.btn-blue:hover{background:var(--blue-d);transform:translateY(-2px);box-shadow:0 14px 36px rgba(26,120,194,.42)}
-.btn-ghost{background:transparent;color:var(--blue);padding:13px 28px;border-radius:8px;font-size:.93rem;border:2px solid var(--blue)}
-.btn-ghost:hover{background:var(--blue);color:#fff}
-.btn-ghost-white{background:transparent;color:#fff;padding:13px 28px;border-radius:8px;font-size:.93rem;border:2px solid rgba(255,255,255,.4)}
-.btn-ghost-white:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.7)}
-.btn-sm{padding:9px 20px;font-size:.82rem;border-radius:6px}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}.reveal.up{opacity:1;transform:none}
-.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .65s ease,transform .65s ease}.reveal-l.up{opacity:1;transform:none}
-.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .65s ease,transform .65s ease}.reveal-r.up{opacity:1;transform:none}
-
-/* ═══ GLOBAL NAV ═══ */
-#nav{position:fixed;top:0;left:0;right:0;z-index:9000;transition:background .3s,box-shadow .3s,border-color .3s}
-/* Default: always visible white nav */
-#nav{background:rgba(255,255,255,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(26,120,194,.08)}
-#nav.scrolled{box-shadow:0 2px 32px rgba(0,0,0,.08)}
-/* dark-hero pages: transparent until scrolled */
-#nav.dark-hero:not(.scrolled){background:transparent;border-bottom-color:transparent;box-shadow:none}
-#nav.dark-hero:not(.scrolled) .nv-link{color:rgba(255,255,255,.82)}
-#nav.dark-hero:not(.scrolled) .nv-link:hover{color:#fff;background:rgba(255,255,255,.12)}
-#nav.dark-hero:not(.scrolled) .nv-item.active .nv-link{color:#fff;background:rgba(255,255,255,.15)}
-#nav.dark-hero:not(.scrolled) .nv-cta-ghost{border-color:rgba(255,255,255,.38);color:#fff}
-#nav.dark-hero:not(.scrolled) .nv-cta-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.7)}
-#nav.dark-hero:not(.scrolled) .ham span{background:#fff}
-#nav.dark-hero:not(.scrolled) .nv-chevron{color:rgba(255,255,255,.55)}
-#nav.dark-hero:not(.scrolled) .nv-cta-solid{background:rgba(255,255,255,.15);box-shadow:none;border:1.5px solid rgba(255,255,255,.35)}
-#nav.dark-hero:not(.scrolled) .nv-cta-solid:hover{background:rgba(255,255,255,.25)}
-/* scrolled always white */
-#nav.dark-hero.scrolled{background:rgba(255,255,255,.97);border-bottom-color:rgba(26,120,194,.08);box-shadow:0 2px 32px rgba(0,0,0,.08)}
-#nav.dark-hero.scrolled .nv-link{color:var(--muted)}
-#nav.dark-hero.scrolled .nv-link:hover{color:var(--blue);background:var(--blue-pale)}
-#nav.dark-hero.scrolled .nv-cta-ghost{border-color:rgba(26,120,194,.3);color:var(--blue)}
-#nav.dark-hero.scrolled .nv-cta-solid{background:var(--blue);box-shadow:0 4px 16px rgba(26,120,194,.28);border:none}
-#nav.dark-hero.scrolled .ham span{background:var(--body)}
-.nv-inner{max-width:1300px;margin:0 auto;padding:0 36px;display:flex;align-items:center;height:74px;gap:0}
-.nv-logo{display:flex;align-items:center;flex-shrink:0;margin-right:36px}
-.nv-logo img{height:50px;width:auto;object-fit:contain}
-.nv-menu{display:flex;align-items:center;gap:0;list-style:none;flex:1}
-.nv-item{position:relative}
-.nv-link{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:.86rem;font-weight:500;padding:8px 13px;border-radius:8px;transition:all .18s;cursor:pointer;white-space:nowrap;border:none;background:none;font-family:'Outfit',sans-serif}
-.nv-link:hover{color:var(--blue);background:var(--blue-pale)}
-.nv-item.active .nv-link{color:var(--blue);background:var(--blue-pale);font-weight:700}
-.nv-item.active .nv-link::after{content:"";display:block;position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:18px;height:3px;border-radius:2px;background:var(--blue)}
-.nv-chevron{font-size:.6rem;transition:transform .22s;opacity:.55}
-.nv-item.open .nv-chevron{transform:rotate(180deg)}
-.nv-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
-.nv-cta-ghost{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;border-radius:8px;border:1.5px solid rgba(26,120,194,.3);color:var(--blue);font-size:.84rem;font-weight:600;transition:all .2s;font-family:'Outfit',sans-serif;white-space:nowrap}
-.nv-cta-ghost:hover{background:var(--blue-pale);border-color:var(--blue)}
-.nv-cta-solid{display:inline-flex;align-items:center;gap:7px;padding:9px 22px;border-radius:8px;background:var(--blue);color:#fff;font-size:.84rem;font-weight:700;transition:all .2s;font-family:'Outfit',sans-serif;box-shadow:0 4px 16px rgba(26,120,194,.28);white-space:nowrap}
-.nv-cta-solid:hover{background:var(--blue-d);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,120,194,.36)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;margin-left:8px}
-.ham span{display:block;width:22px;height:2px;background:var(--body);border-radius:2px;transition:.28s}
-/* Dropdowns */
-.nv-drop{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-6px);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:9100;min-width:240px}
-/* Simple dropdowns: centre under their trigger */
-.nv-item.open .nv-drop{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-/* Wide mega panels: anchor left to the menu left edge, not the trigger */
-.nv-drop.wide{min-width:680px;left:0;transform:translateX(0) translateY(-6px)}
-.nv-item.open .nv-drop.wide{opacity:1;pointer-events:auto;transform:translateX(0) translateY(0)}
-/* Right-aligned: used for last items near right edge */
-.nv-drop.ralign{left:auto;right:0;transform:translateX(0) translateY(-6px)}
-.nv-item.open .nv-drop.ralign{transform:translateX(0) translateY(0)}
-/* Prevent mega overflow off right edge of screen */
-@media(max-width:1080px){.nv-drop.wide{min-width:560px}}
-.drop-panel{background:#fff;border:1px solid rgba(26,120,194,.1);border-radius:18px;box-shadow:0 24px 64px rgba(0,0,0,.12),0 4px 16px rgba(26,120,194,.08);overflow:hidden}
-.drop-list{padding:8px}
-.drop-link{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;color:var(--body);font-size:.875rem;font-weight:500;transition:.15s;text-decoration:none}
-.drop-link:hover{background:var(--blue-pale);color:var(--blue)}
-.dl-ico{width:32px;height:32px;border-radius:9px;background:var(--blue-pale);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;transition:.15s}
-.drop-link:hover .dl-ico{background:var(--blue);color:#fff}
-.dl-title{font-weight:600;font-size:.86rem;color:var(--navy);line-height:1.2}
-.dl-sub{font-size:.76rem;color:var(--muted);margin-top:1px}
-.drop-sep{height:1px;background:rgba(26,120,194,.08);margin:6px 8px}
-/* Mega */
-.mega-wrap{display:grid;grid-template-columns:200px 1fr;min-height:320px}
-.mega-sidebar{background:linear-gradient(160deg,var(--navy-d),#122540);padding:20px 14px;display:flex;flex-direction:column;gap:2px}
-.mega-tab{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;cursor:pointer;transition:.18s;border:none;background:transparent;text-align:left;width:100%}
-.mega-tab:hover{background:rgba(255,255,255,.07)}
-.mega-tab.active{background:rgba(42,176,232,.15);border:1px solid rgba(42,176,232,.2)}
-.mega-tab-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;background:rgba(255,255,255,.07)}
-.mega-tab.active .mega-tab-ico{background:rgba(42,176,232,.2)}
-.mega-tab-lbl{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.5);font-family:'Outfit',sans-serif}
-.mega-tab.active .mega-tab-lbl{color:#fff}
-.mega-content{padding:20px;display:none}
-.mega-content.active{display:block}
-.mega-sec-title{font-family:'JetBrains Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
-.mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-.mega-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;transition:.15s;text-decoration:none}
-.mega-item:hover{background:var(--blue-pale)}
-.mega-item-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0;transition:.15s}
-.mi-title{font-weight:600;font-size:.86rem;color:var(--navy);line-height:1.2;margin-bottom:2px}
-.mi-sub{font-size:.74rem;color:var(--muted)}
-.mega-cta{grid-column:1/-1;margin-top:8px;padding:14px 16px;background:linear-gradient(135deg,var(--blue-d),var(--blue));border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.mega-cta p{font-size:.8rem;color:rgba(255,255,255,.65);margin:0}
-.mega-cta strong{color:#fff;font-size:.88rem;display:block}
-.mega-cta a{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--blue);font-size:.78rem;font-weight:700;padding:7px 16px;border-radius:7px;white-space:nowrap;transition:.18s;text-decoration:none;flex-shrink:0}
-.mega-cta a:hover{background:var(--blue-pale)}
-/* Mobile drawer */
-#drawer{display:none;position:fixed;inset:0;background:#fff;z-index:8999;overflow-y:auto;flex-direction:column}
-#drawer.open{display:flex}
-.dwr-head{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid rgba(26,120,194,.1);min-height:74px}
-.dwr-head img{height:44px}
-.dwr-close{width:36px;height:36px;border-radius:9px;background:var(--off);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--muted)}
-.dwr-body{flex:1;padding:16px 20px;display:flex;flex-direction:column;gap:2px}
-.dwr-sec{font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:16px 12px 8px;margin-top:4px}
-.dwr-link{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;color:var(--body);font-size:.93rem;font-weight:500;transition:.15s;text-decoration:none}
-.dwr-link:hover{background:var(--blue-pale);color:var(--blue)}
-.d-ico{width:34px;height:34px;border-radius:9px;background:var(--off);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
-.dwr-link.active{background:var(--blue-pale);color:var(--blue);font-weight:600}
-.dwr-link.active .d-ico{background:var(--blue);color:#fff}
-.dwr-foot{padding:20px;border-top:1px solid rgba(26,120,194,.1);display:flex;flex-direction:column;gap:10px}
-.dwr-foot .nv-cta-solid,.dwr-foot .nv-cta-ghost{justify-content:center;width:100%;padding:13px 20px;font-size:.93rem;border-radius:10px}
-@media(max-width:1020px){.nv-menu{display:none}.ham{display:flex}.nv-cta-ghost{display:none}}
-
-/* ══ HERO ══ */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding-top:74px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 60% at 110% 50%,rgba(26,120,194,.06) 0%,transparent 70%)}
-.hero-dots{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 1px 1px,rgba(26,120,194,.06) 1px,transparent 0);background-size:40px 40px}
-.hero-left{padding:80px 48px 80px 0;position:relative;z-index:2}
-.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.hero-pulse{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:pdot 2.5s infinite}
-@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(26,120,194,.5)}50%{box-shadow:0 0 0 8px rgba(26,120,194,0)}}
-.hero-left h1{font-size:clamp(2.8rem,4.5vw,5rem);line-height:.93;letter-spacing:-.03em;color:var(--navy);margin-bottom:20px}
-.hero-left h1 em{font-style:italic;background:linear-gradient(135deg,var(--blue),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-left p{font-size:1.08rem;color:var(--muted);line-height:1.78;max-width:490px;margin-bottom:38px}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px}
-.hero-metrics{display:flex;gap:40px;padding-top:36px;border-top:1px solid rgba(26,120,194,.12);flex-wrap:wrap}
-.hm-num{font-family:'Fraunces',serif;font-size:2.1rem;font-weight:900;color:var(--blue);line-height:1}
-.hm-label{font-size:.73rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
-.hero-right{height:100%;min-height:100vh;position:relative;overflow:hidden}
-.hero-right-bg{position:absolute;inset:0;background:linear-gradient(140deg,var(--navy-d) 0%,var(--navy-m) 50%,#173d6e 100%)}
-.hero-right img.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32;mix-blend-mode:luminosity}
-.hero-right-overlay{position:absolute;bottom:0;left:0;right:0;padding:44px;background:linear-gradient(to top,rgba(10,21,37,.96),transparent);z-index:3}
-.hero-stat{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1}
-.hero-stat-lbl{font-size:.82rem;color:rgba(255,255,255,.55);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
-.hero-float{position:absolute;z-index:4;background:#fff;border-radius:16px;padding:16px 20px;box-shadow:0 20px 56px rgba(0,0,0,.22)}
-.hf1{top:20%;left:-28px;display:flex;align-items:center;gap:12px}
-.hf2{top:46%;right:22px}
-.hf-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.hf-ic.blue{background:var(--blue-pale)}.hf-ic.sky{background:rgba(42,176,232,.12)}
-.hf-n{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;line-height:1}
-.hf-n.blue{color:var(--blue)}.hf-n.sky{color:var(--sky)}
-.hf-l{font-size:.73rem;color:var(--muted);margin-top:2px}
-@media(max-width:960px){.hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:60px 0 40px}.hero-right{height:55vw;min-height:300px;width:100vw;margin-left:-36px}.hf1{display:none}}
-
-/* ══ SECTIONS ══ */
-section{position:relative}.sec{padding:100px 0}.sec-sm{padding:64px 0}
-.sec-hd{margin-bottom:56px}.sec-hd .tag{margin-bottom:14px}
-.sec-hd h2{font-size:clamp(1.9rem,3.3vw,2.9rem);color:var(--navy);line-height:1.05;letter-spacing:-.025em;margin-bottom:14px}
-.sec-hd p{font-size:1rem;color:var(--muted);line-height:1.78;max-width:580px}
-.sec-hd.center{text-align:center}.sec-hd.center p{margin:0 auto}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(26,120,194,.18),transparent)}
-
-/* TRUST BAR */
-.trust-bar{padding:22px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-.trust-bar-inner{display:flex;align-items:center;gap:48px;white-space:nowrap;animation:marquee 28s linear infinite}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.trust-item{display:flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;color:var(--muted);letter-spacing:.03em;flex-shrink:0}
-.trust-item i{color:var(--blue);font-size:.9rem}
-.trust-dot{width:4px;height:4px;border-radius:50%;background:var(--border);flex-shrink:0}
-
-/* STRIP */
-.strip{background:linear-gradient(135deg,var(--blue-d),var(--blue),var(--sky));padding:60px 0}
-.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.strip-item{text-align:center}
-.strip-icon{font-size:1.9rem;margin-bottom:10px;color:rgba(255,255,255,.9)}
-.strip-num{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:900;color:#fff;line-height:1}
-.strip-label{font-size:.74rem;color:rgba(255,255,255,.62);text-transform:uppercase;letter-spacing:.09em;margin-top:5px}
-@media(max-width:720px){.strip-grid{grid-template-columns:1fr 1fr}}
-
-/* ARMS */
-.arms-bg{background:var(--navy-d)}
-.arms-intro{text-align:center;padding:100px 0 0;color:#fff}
-.arms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:56px}
-.arm-card{position:relative;aspect-ratio:2/3;overflow:hidden;cursor:pointer}
-.arm-card img{width:100%;height:100%;object-fit:cover;transition:transform .65s ease}
-.arm-card:hover img{transform:scale(1.08)}
-.arm-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,20,36,.96) 0%,rgba(8,20,36,.5) 50%,rgba(8,20,36,.1) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:34px;transition:.3s}
-.arm-num{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
-.arm-num.c1{color:rgba(42,176,232,.85)}.arm-num.c2{color:rgba(240,192,64,.85)}.arm-num.c3{color:rgba(61,186,126,.85)}
-.arm-title{font-family:'Fraunces',serif;font-size:1.75rem;color:#fff;font-weight:900;margin-bottom:10px;line-height:1.1}
-.arm-desc{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.68;margin-bottom:20px}
-.arm-cta{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;color:#fff;opacity:0;transform:translateY(8px);transition:.3s;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
-.arm-card:hover .arm-cta{opacity:1;transform:none}
-@media(max-width:900px){.arms-grid{grid-template-columns:1fr}}
-
-/* PRODUCTS */
-.products-bg{background:var(--off)}
-.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
-.prod-card{background:#fff;border-radius:18px;border:1.5px solid var(--border);overflow:hidden;transition:.28s;cursor:pointer}
-.prod-card:hover{transform:translateY(-6px);box-shadow:0 20px 56px rgba(26,120,194,.13);border-color:rgba(26,120,194,.35)}
-.prod-top{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.prod-icon-big{font-size:3.5rem;position:relative;z-index:1}
-.prod-body{padding:24px}
-.prod-sector{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:6px}
-.prod-title{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:800;color:var(--navy);margin-bottom:8px}
-.prod-desc{font-size:.86rem;color:var(--muted);line-height:1.68;margin-bottom:16px}
-.prod-tags{display:flex;flex-wrap:wrap;gap:6px}
-.prod-tag{font-size:.71rem;padding:3px 10px;border-radius:20px;background:var(--blue-pale);color:var(--blue);font-weight:600;font-family:'JetBrains Mono',monospace}
-@media(max-width:960px){.products-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.products-grid{grid-template-columns:1fr}}
-
-/* DIRECTORS */
-.directors-bg{background:var(--navy-d);padding:100px 0}
-.directors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
-.dir-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;transition:.3s}
-.dir-card:hover{background:rgba(255,255,255,.07);border-color:rgba(42,176,232,.3);transform:translateY(-4px)}
-.dir-photo{aspect-ratio:1/1;overflow:hidden;background:linear-gradient(135deg,var(--navy-m),#1a3a5c)}
-.dir-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.dir-body{padding:22px}
-.dir-name{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:800;color:#fff;margin-bottom:4px}
-.dir-pos{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--sky);margin-bottom:12px}
-.dir-bio{font-size:.84rem;color:rgba(255,255,255,.48);line-height:1.7;margin-bottom:14px}
-.dir-socials{display:flex;gap:8px}
-.dir-soc{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.8rem;transition:.2s}
-.dir-soc:hover{background:var(--blue);border-color:var(--blue);color:#fff}
-@media(max-width:960px){.directors-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:580px){.directors-grid{grid-template-columns:1fr}}
-
-/* VISION */
-.vision-sec{background:linear-gradient(140deg,var(--navy-d),var(--navy-m));padding:100px 0;text-align:center;overflow:hidden;position:relative}
-.vision-sec::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%231a78c2' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.vision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
-.vis-block{padding:40px;border:1px solid rgba(255,255,255,.06);text-align:left;transition:.3s;position:relative;overflow:hidden}
-.vis-block:hover{background:rgba(255,255,255,.04);border-color:rgba(42,176,232,.25)}
-.vis-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--sky),transparent);opacity:0;transition:.3s}
-.vis-block:hover::before{opacity:1}
-.vis-icon{font-size:2rem;margin-bottom:18px;color:var(--sky)}
-.vis-title{font-family:'Fraunces',serif;font-size:1.3rem;color:#fff;font-weight:800;margin-bottom:10px}
-.vis-desc{font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.72}
-@media(max-width:800px){.vision-grid{grid-template-columns:1fr}}
-
-/* CTA */
-.cta-banner{background:linear-gradient(135deg,var(--blue-d),var(--blue),var(--sky));padding:80px 0;text-align:center}
-.cta-banner h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:14px}
-.cta-banner p{color:rgba(255,255,255,.65);font-size:1rem;max-width:500px;margin:0 auto 36px;line-height:1.75}
-.cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
-
-/* FOOTER */
-footer{background:var(--dark);padding:68px 0 28px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
-.footer-logo img{height:48px;width:auto;margin-bottom:16px}
-.footer-brand p{font-size:.84rem;color:rgba(255,255,255,.33);line-height:1.78;max-width:260px;margin-bottom:22px}
-.social-row{display:flex;gap:10px}
-.social-btn{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:.82rem;transition:.2s}
-.social-btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
-.footer-col h4{font-family:'JetBrains Mono',monospace;font-size:.69rem;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
-.footer-col a{display:block;color:rgba(255,255,255,.38);font-size:.85rem;margin-bottom:10px;transition:.2s}
-.footer-col a:hover{color:var(--gold-l)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.footer-copy{font-size:.77rem;color:rgba(255,255,255,.22)}
-.footer-legal{display:flex;gap:20px}
-.footer-legal a{font-size:.77rem;color:rgba(255,255,255,.22);transition:.2s}
-.footer-legal a:hover{color:rgba(255,255,255,.5)}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.footer-grid{grid-template-columns:1fr}}
-@media(max-width:640px){.container{padding:0 20px}.nv-inner{padding:0 20px}}
-
-.dir-phone{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:10px}
-.dir-phone a{color:var(--sky);text-decoration:none;font-weight:600}
-.dir-phone a:hover{color:#fff}
-.dir-phone i{margin-right:5px;font-size:.75rem}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nucleus Tech Solution — Where Ideas Evolve Into Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .hero { min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden; padding-top:var(--nav-h); }
+    .hero-bg { position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse 80% 60% at 60% 20%, rgba(108,92,231,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 10% 80%, rgba(6,182,212,0.1) 0%, transparent 60%); }
+    .hero-grid { position:absolute; inset:0; z-index:0; background-image:linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size:80px 80px; mask-image:radial-gradient(ellipse 100% 100% at 50% 0%, black 0%, transparent 80%); }
+    .hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(108,92,231,0.12); border:1px solid rgba(108,92,231,0.25); padding:6px 14px; border-radius:50px; margin-bottom:28px; font-size:0.78rem; font-weight:600; color:var(--accent-2); }
+    .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--accent-2); animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .hero h1 { margin-bottom:24px; }
+    .hero-desc { color:var(--white-70); font-size:1.1rem; max-width:480px; margin-bottom:40px; line-height:1.75; }
+    .hero-btns { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:56px; }
+    .hero-img { position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:4/3; border:1px solid var(--border); box-shadow:0 40px 100px rgba(0,0,0,0.6); }
+    .hero-img img { width:100%; height:100%; object-fit:cover; }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(135deg, rgba(108,92,231,0.15) 0%, transparent 60%); }
+    .float1 { position:absolute; bottom:20px; left:20px; background:rgba(5,5,10,0.92); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:10px; padding:14px 18px; display:flex; align-items:center; gap:12px; }
+    .float1 .ic { width:38px; height:38px; border-radius:8px; background:var(--grad); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1rem; flex-shrink:0; }
+    .float1 strong { display:block; font-size:0.85rem; font-family:'Syne',sans-serif; }
+    .float1 span { font-size:0.72rem; color:var(--white-40); }
+    .float2 { position:absolute; top:20px; right:20px; background:rgba(5,5,10,0.92); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:10px; padding:12px 18px; text-align:center; }
+    .float2 strong { display:block; font-size:1.3rem; font-family:'Syne',sans-serif; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .float2 span { font-size:0.7rem; color:var(--white-40); }
+    /* Arms */
+    .arms-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:64px; }
+    .arm-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:var(--transition); }
+    .arm-card:hover { border-color:var(--accent); transform:translateY(-6px); box-shadow:0 24px 60px rgba(108,92,231,0.2); }
+    .arm-img { aspect-ratio:16/9; overflow:hidden; }
+    .arm-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+    .arm-card:hover .arm-img img { transform:scale(1.06); }
+    .arm-body { padding:28px; }
+    .arm-num { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent-2); margin-bottom:8px; }
+    .arm-body h3 { margin-bottom:8px; font-size:1.25rem; }
+    .arm-body p { color:var(--white-70); font-size:0.9rem; line-height:1.65; margin-bottom:20px; }
+    .arm-link { font-size:0.85rem; font-weight:600; color:var(--accent-2); display:inline-flex; align-items:center; gap:6px; transition:gap var(--transition); }
+    .arm-card:hover .arm-link { gap:10px; }
+    /* Products */
+    .product-row { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; padding:56px 0; border-bottom:1px solid var(--border); }
+    .product-row:last-child { border-bottom:none; }
+    .product-row.rev .product-img { order:2; }
+    .product-row.rev .product-content { order:1; }
+    .product-img { border-radius:var(--radius); overflow:hidden; aspect-ratio:16/10; border:1px solid var(--border); }
+    .product-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+    .product-row:hover .product-img img { transform:scale(1.03); }
+    .product-content .tag { margin-bottom:16px; }
+    .product-content h3 { font-size:1.7rem; margin-bottom:12px; }
+    .product-content p { color:var(--white-70); margin-bottom:24px; line-height:1.7; }
+    .ptags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+    .ptag { font-size:0.72rem; padding:4px 10px; border-radius:50px; background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--white-70); }
+    /* Leaders */
+    .leaders-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:760px; margin:64px auto 0; }
+    .leader-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:28px; display:flex; gap:18px; transition:var(--transition); }
+    .leader-card:hover { border-color:var(--border-hover); transform:translateY(-3px); }
+    .l-avatar { width:68px; height:68px; border-radius:50%; overflow:hidden; border:2px solid var(--border); flex-shrink:0; }
+    .l-avatar img { width:100%; height:100%; object-fit:cover; }
+    .l-info h4 { font-size:1rem; margin-bottom:4px; }
+    .l-info .role { font-size:0.78rem; color:var(--accent-2); margin-bottom:8px; }
+    .l-info .ph { font-size:0.78rem; color:var(--white-40); display:flex; align-items:center; gap:6px; }
+    /* Vision */
+    .vision-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:64px; }
+    .vision-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius); padding:36px; }
+    .vision-card .vlabel { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent-2); margin-bottom:12px; }
+    .vision-card p { color:var(--white-70); font-size:0.925rem; line-height:1.75; }
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-img{display:none}.arms-grid{grid-template-columns:1fr}.product-row{grid-template-columns:1fr}.product-row.rev .product-img,.product-row.rev .product-content{order:unset}.leaders-grid{grid-template-columns:1fr;max-width:480px}.vision-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
-<nav id="nav" class="dark-hero">
-  <div class="nv-inner">
-    <a href="index.html" class="nv-logo"><img src="logo.png" alt="Nucleus Tech Solution"/></a>
-    <ul class="nv-menu">
+<!-- ===== WHITE NAVBAR ===== -->
+<nav class="navbar" id="mainNav">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo">
+      <img src="http://nucleaus.schooldevs.com/logo.png" alt="Nucleus Tech Solution"
+           onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML+='<span class=\'logo-text\'>Nucleus</span>'">
+    </a>
 
-      <!-- Products mega -->
-      <li class="nv-item" id="ni-prod">
-        <button class="nv-link text-black" onclick="toggleDrop('ni-prod')">Products <i class="fa-solid fa-chevron-down nv-chevron"></i></button>
-        <div class="nv-drop wide">
-          <div class="drop-panel">
-            <div class="mega-wrap">
-              <div class="mega-sidebar">
-                <button class="mega-tab active" onclick="switchTab(this,'mp-saas')"><div class="mega-tab-ico"><i class="fa-solid fa-layer-group" style="color:var(--sky)"></i></div><span class="mega-tab-lbl">SaaS Platforms</span></button>
-                <button class="mega-tab" onclick="switchTab(this,'mp-sector')"><div class="mega-tab-ico"><i class="fa-solid fa-globe" style="color:#f0c040"></i></div><span class="mega-tab-lbl">Sectors</span></button>
-                <button class="mega-tab" onclick="switchTab(this,'mp-api')"><div class="mega-tab-ico"><i class="fa-solid fa-code" style="color:#3dba7e"></i></div><span class="mega-tab-lbl">Developer APIs</span></button>
-              </div>
-              <div class="mega-content active" id="mp-saas">
-                <div class="mega-sec-title">Our Products</div>
-                <div class="mega-grid">
-<a href="solutions.html#voicescheduler" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-microphone-lines" style="color:#1a78c2"></i></div><div><div class="mi-title">AI Voice Scheduler</div><div class="mi-sub">Smart voice-powered scheduling for busy professionals</div></div></a>
-<a href="solutions.html#inventopro" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-solid fa-boxes-stacked" style="color:#1a7c3e"></i></div><div><div class="mi-title">Invento Pro</div><div class="mi-sub">Enterprise-grade inventory management, reimagined</div></div></a>
-<a href="solutions.html#gesturerecog" class="mega-item"><div class="mega-item-ico" style="background:#f0eafc"><i class="fa-solid fa-hand-pointer" style="color:#7b2fc2"></i></div><div><div class="mi-title">Multi-Gesture Recognition</div><div class="mi-sub">Next-generation touchless human-computer interaction</div></div></a>
-                </div>
-                <div class="mega-cta"><div><strong>Build with Nucleus Studios</strong><p>Ship production-grade software globally</p></div><a href="contact.html">Start a Project <i class="fa-solid fa-arrow-right"></i></a></div>
-              </div>
-              <div class="mega-content" id="mp-sector">
-                <div class="mega-sec-title">Industries We Serve</div>
-                <div class="mega-grid">
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-chart-line" style="color:var(--blue)"></i></div><div><div class="mi-title">FinTech</div><div class="mi-sub">Payments, lending, wealth</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#f0eafc"><i class="fa-solid fa-heart-pulse" style="color:#7b2fc2"></i></div><div><div class="mi-title">HealthTech</div><div class="mi-sub">EHR, telemedicine, diagnostics</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-solid fa-leaf" style="color:#2d8a5f"></i></div><div><div class="mi-title">AgriTech</div><div class="mi-sub">Smart farming & supply chain</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#fff4e0"><i class="fa-solid fa-graduation-cap" style="color:#d4a017"></i></div><div><div class="mi-title">EdTech</div><div class="mi-sub">Learning platforms & LMS</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#eaf0fc"><i class="fa-solid fa-building-columns" style="color:#3a60c2"></i></div><div><div class="mi-title">GovTech</div><div class="mi-sub">Civic & public sector</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#fce8e8"><i class="fa-solid fa-truck-fast" style="color:#c23a3a"></i></div><div><div class="mi-title">LogiTech</div><div class="mi-sub">Logistics & supply chain</div></div></a>
-                </div>
-              </div>
-              <div class="mega-content" id="mp-api">
-                <div class="mega-sec-title">Developer Tools</div>
-                <div class="mega-grid">
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-solid fa-plug" style="color:#2d8a5f"></i></div><div><div class="mi-title">Payments API</div><div class="mi-sub">REST / Webhooks / SDKs</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-database" style="color:var(--blue)"></i></div><div><div class="mi-title">Identity API</div><div class="mi-sub">KYC / Auth / Compliance</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#f0eafc"><i class="fa-solid fa-brain" style="color:#7b2fc2"></i></div><div><div class="mi-title">AI Inference</div><div class="mi-sub">ML models & data pipelines</div></div></a>
-                  <a href="solutions.html" class="mega-item"><div class="mega-item-ico" style="background:#fff4e0"><i class="fa-solid fa-shield-halved" style="color:#d4a017"></i></div><div><div class="mi-title">Security Suite</div><div class="mi-sub">Threat detection & compliance</div></div></a>
-                </div>
-                <div class="mega-cta"><div><strong>API Documentation</strong><p>Explore our developer-first platform</p></div><a href="solutions.html">View Docs <i class="fa-solid fa-arrow-right"></i></a></div>
-              </div>
+    <!-- Desktop nav -->
+    <ul class="nav-links">
+      <!-- Products -->
+      <li class="has-mega">
+        <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+          Products <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <p class="mega-label">Our Products</p>
+            <a href="solutions.html#voicescheduler"><strong><i class="fa-solid fa-microphone-lines fa-fw" style="color:var(--accent);margin-right:6px"></i>AI Voice Scheduler</strong><span>Smart voice-powered scheduling</span></a>
+            <a href="solutions.html#inventopro"><strong><i class="fa-solid fa-boxes-stacked fa-fw" style="color:var(--accent-3);margin-right:6px"></i>Invento Pro</strong><span>Enterprise inventory management</span></a>
+            <a href="solutions.html#gesturerecog"><strong><i class="fa-solid fa-hand-sparkles fa-fw" style="color:var(--accent-2);margin-right:6px"></i>Multi-Gesture Recognition</strong><span>Touchless HCI platform</span></a>
+            <div class="mega-cta">
+              <p><strong>Build with Nucleus Studios</strong><br><small>Ship production-grade software globally</small></p>
+              <a href="contact.html" class="btn-sm"><i class="fa-solid fa-rocket"></i> Start a Project</a>
+            </div>
+          </div>
+          <div class="mega-col">
+            <p class="mega-label">Industries We Serve</p>
+            <a href="solutions.html"><strong>FinTech</strong><span>Payments, lending, wealth</span></a>
+            <a href="solutions.html"><strong>HealthTech</strong><span>EHR, telemedicine, diagnostics</span></a>
+            <a href="solutions.html"><strong>AgriTech</strong><span>Smart farming & supply chain</span></a>
+            <a href="solutions.html"><strong>EdTech</strong><span>Learning platforms & LMS</span></a>
+            <a href="solutions.html"><strong>GovTech</strong><span>Civic & public sector</span></a>
+            <a href="solutions.html"><strong>LogiTech</strong><span>Logistics & supply chain</span></a>
+          </div>
+          <div class="mega-col">
+            <p class="mega-label">Developer Tools</p>
+            <a href="solutions.html"><strong>Payments API</strong><span>REST / Webhooks / SDKs</span></a>
+            <a href="solutions.html"><strong>Identity API</strong><span>KYC / Auth / Compliance</span></a>
+            <a href="solutions.html"><strong>AI Inference</strong><span>ML models & data pipelines</span></a>
+            <a href="solutions.html"><strong>Security Suite</strong><span>Threat detection & compliance</span></a>
+            <div class="mega-cta">
+              <p><strong>API Documentation</strong><br><small>Explore our developer-first platform</small></p>
+              <a href="solutions.html" class="btn-sm"><i class="fa-solid fa-code"></i> View Docs</a>
             </div>
           </div>
         </div>
       </li>
 
       <!-- Solutions -->
-      <li class="nv-item" id="ni-sol">
-        <button class="nv-link" onclick="toggleDrop('ni-sol')">Solutions <i class="fa-solid fa-chevron-down nv-chevron"></i></button>
-        <div class="nv-drop" style="min-width:270px">
-          <div class="drop-panel">
-            <div class="drop-list">
-              <a href="solutions.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-code"></i></div><div><div class="dl-title">Custom Software</div><div class="dl-sub">Bespoke digital systems & platforms</div></div></a>
-              <a href="solutions.html" class="drop-link"><div class="dl-ico"><i class="fa-brands fa-aws"></i></div><div><div class="dl-title">Cloud & DevOps</div><div class="dl-sub">Infra architecture & CI/CD pipelines</div></div></a>
-              <a href="solutions.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-shield-halved"></i></div><div><div class="dl-title">Cybersecurity</div><div class="dl-sub">Penetration testing & compliance</div></div></a>
-              <a href="solutions.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-brain"></i></div><div><div class="dl-title">AI & Data Analytics</div><div class="dl-sub">ML pipelines, dashboards & BI</div></div></a>
-              <a href="solutions.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-pen-ruler"></i></div><div><div class="dl-title">UI/UX Design</div><div class="dl-sub">Product design & design systems</div></div></a>
-              <div class="drop-sep"></div>
-              <a href="contact.html" class="drop-link" style="color:var(--blue)"><div class="dl-ico" style="background:var(--blue);color:#fff"><i class="fa-solid fa-handshake"></i></div><div><div class="dl-title">Request a Consultation</div><div class="dl-sub">Free scoping call with our team</div></div></a>
-            </div>
+      <li class="has-mega">
+        <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+          Solutions <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="mega-menu mega-sm">
+          <div class="mega-col">
+            <a href="solutions.html"><strong><i class="fa-solid fa-laptop-code fa-fw" style="color:var(--accent);margin-right:6px"></i>Custom Software</strong><span>Bespoke digital systems & platforms</span></a>
+            <a href="solutions.html"><strong><i class="fa-solid fa-cloud fa-fw" style="color:var(--accent-3);margin-right:6px"></i>Cloud & DevOps</strong><span>Infra architecture & CI/CD pipelines</span></a>
+            <a href="solutions.html"><strong><i class="fa-solid fa-shield-halved fa-fw" style="color:#ef4444;margin-right:6px"></i>Cybersecurity</strong><span>Penetration testing & compliance</span></a>
+            <a href="solutions.html"><strong><i class="fa-solid fa-brain fa-fw" style="color:var(--accent-2);margin-right:6px"></i>AI & Data Analytics</strong><span>ML pipelines, dashboards & BI</span></a>
+            <a href="solutions.html"><strong><i class="fa-solid fa-pen-ruler fa-fw" style="color:#f59e0b;margin-right:6px"></i>UI/UX Design</strong><span>Product design & design systems</span></a>
+            <hr>
+            <a href="contact.html" class="mega-cta-link"><strong>Request a Consultation</strong><span>Free scoping call with our team →</span></a>
           </div>
         </div>
       </li>
 
-      <!-- Academy mega -->
-      <li class="nv-item" id="ni-acad">
-        <button class="nv-link" onclick="toggleDrop('ni-acad')">Academy <i class="fa-solid fa-chevron-down nv-chevron"></i></button>
-        <div class="nv-drop wide">
-          <div class="drop-panel">
-            <div class="mega-wrap">
-              <div class="mega-sidebar">
-                <button class="mega-tab active" onclick="switchTab(this,'ma-prog')"><div class="mega-tab-ico"><i class="fa-solid fa-rocket" style="color:var(--sky)"></i></div><span class="mega-tab-lbl">Programs</span></button>
-                <button class="mega-tab" onclick="switchTab(this,'ma-fmt')"><div class="mega-tab-ico"><i class="fa-solid fa-calendar-days" style="color:#f0c040"></i></div><span class="mega-tab-lbl">Formats</span></button>
-                <button class="mega-tab" onclick="switchTab(this,'ma-corp')"><div class="mega-tab-ico"><i class="fa-solid fa-building" style="color:#3dba7e"></i></div><span class="mega-tab-lbl">Enterprise</span></button>
-              </div>
-              <div class="mega-content active" id="ma-prog">
-                <div class="mega-sec-title">Technical Tracks</div>
-                <div class="mega-grid">
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-laptop-code" style="color:var(--blue)"></i></div><div><div class="mi-title">Software Engineering</div><div class="mi-sub">Full-stack · Backend · Mobile</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#f0eafc"><i class="fa-solid fa-chart-simple" style="color:#7b2fc2"></i></div><div><div class="mi-title">Data Science & AI</div><div class="mi-sub">ML · Analytics · LLMs</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#fff4e0"><i class="fa-solid fa-pen-ruler" style="color:#d4a017"></i></div><div><div class="mi-title">UI/UX Design</div><div class="mi-sub">Figma · Design Systems</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-brands fa-aws" style="color:#2d8a5f"></i></div><div><div class="mi-title">Cloud & DevOps</div><div class="mi-sub">AWS · GCP · Kubernetes</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#fce8e8"><i class="fa-solid fa-shield-halved" style="color:#c23a3a"></i></div><div><div class="mi-title">Cybersecurity</div><div class="mi-sub">Ethical hacking · SOC</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#eaf0fc"><i class="fa-solid fa-robot" style="color:#3a60c2"></i></div><div><div class="mi-title">AI & Prompt Engineering</div><div class="mi-sub">GenAI · LLM applications</div></div></a>
-                </div>
-              </div>
-              <div class="mega-content" id="ma-fmt">
-                <div class="mega-sec-title">Learning Formats</div>
-                <div class="mega-grid">
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-bolt" style="color:var(--blue)"></i></div><div><div class="mi-title">Bootcamp</div><div class="mi-sub">4–8 week intensive programs</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#fff4e0"><i class="fa-solid fa-award" style="color:#d4a017"></i></div><div><div class="mi-title">Diploma</div><div class="mi-sub">10–12 week certified tracks</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-solid fa-tv" style="color:#2d8a5f"></i></div><div><div class="mi-title">Online</div><div class="mi-sub">Self-paced with live mentors</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#f0eafc"><i class="fa-solid fa-people-group" style="color:#7b2fc2"></i></div><div><div class="mi-title">Cohort-Based</div><div class="mi-sub">Learn with a global peer group</div></div></a>
-                </div>
-                <div class="mega-cta"><div><strong>Next Cohort Enrolling</strong><p>Seats are limited — secure yours today</p></div><a href="academy.html">Enroll Now <i class="fa-solid fa-arrow-right"></i></a></div>
-              </div>
-              <div class="mega-content" id="ma-corp">
-                <div class="mega-sec-title">For Organizations</div>
-                <div class="mega-grid">
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f2fc"><i class="fa-solid fa-building" style="color:var(--blue)"></i></div><div><div class="mi-title">Corporate Training</div><div class="mi-sub">Custom upskilling programs</div></div></a>
-                  <a href="academy.html" class="mega-item"><div class="mega-item-ico" style="background:#e8f5ee"><i class="fa-solid fa-handshake" style="color:#2d8a5f"></i></div><div><div class="mi-title">Talent Pipeline</div><div class="mi-sub">Hire pre-vetted graduates</div></div></a>
-                  <a href="contact.html" class="mega-item"><div class="mega-item-ico" style="background:#fff4e0"><i class="fa-solid fa-comments" style="color:#d4a017"></i></div><div><div class="mi-title">Partnerships</div><div class="mi-sub">Co-develop curriculum</div></div></a>
-                </div>
-                <div class="mega-cta"><div><strong>Enterprise Training</strong><p>Upskill your entire team at scale</p></div><a href="contact.html">Get a Quote <i class="fa-solid fa-arrow-right"></i></a></div>
-              </div>
+      <!-- Academy -->
+      <li class="has-mega">
+        <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+          Academy <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <p class="mega-label">Technical Tracks</p>
+            <a href="academy.html"><strong>Software Engineering</strong><span>Full-stack · Backend · Mobile</span></a>
+            <a href="academy.html"><strong>Data Science & AI</strong><span>ML · Analytics · LLMs</span></a>
+            <a href="academy.html"><strong>UI/UX Design</strong><span>Figma · Design Systems</span></a>
+            <a href="academy.html"><strong>Cloud & DevOps</strong><span>AWS · GCP · Kubernetes</span></a>
+            <a href="academy.html"><strong>Cybersecurity</strong><span>Ethical hacking · SOC</span></a>
+            <a href="academy.html"><strong>AI & Prompt Engineering</strong><span>GenAI · LLM applications</span></a>
+          </div>
+          <div class="mega-col">
+            <p class="mega-label">Learning Formats</p>
+            <a href="academy.html"><strong>Bootcamp</strong><span>4–8 week intensive programs</span></a>
+            <a href="academy.html"><strong>Diploma</strong><span>10–12 week certified tracks</span></a>
+            <a href="academy.html"><strong>Online</strong><span>Self-paced with live mentors</span></a>
+            <a href="academy.html"><strong>Cohort-Based</strong><span>Learn with a global peer group</span></a>
+            <div class="mega-cta">
+              <p><strong>Next Cohort Enrolling</strong><br><small>Seats are limited — secure yours today</small></p>
+              <a href="academy.html" class="btn-sm"><i class="fa-solid fa-graduation-cap"></i> Enroll Now</a>
+            </div>
+          </div>
+          <div class="mega-col">
+            <p class="mega-label">For Organizations</p>
+            <a href="academy.html"><strong>Corporate Training</strong><span>Custom upskilling programs</span></a>
+            <a href="academy.html"><strong>Talent Pipeline</strong><span>Hire pre-vetted graduates</span></a>
+            <a href="contact.html"><strong>Partnerships</strong><span>Co-develop curriculum</span></a>
+            <div class="mega-cta">
+              <p><strong>Enterprise Training</strong><br><small>Upskill your entire team at scale</small></p>
+              <a href="contact.html" class="btn-sm"><i class="fa-solid fa-building"></i> Get a Quote</a>
             </div>
           </div>
         </div>
       </li>
 
       <!-- Company -->
-      <li class="nv-item" id="ni-co">
-        <button class="nv-link" onclick="toggleDrop('ni-co')">Company <i class="fa-solid fa-chevron-down nv-chevron"></i></button>
-        <div class="nv-drop" style="min-width:250px">
-          <div class="drop-panel">
-            <div class="drop-list">
-              <a href="about.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-building"></i></div><div><div class="dl-title">About Us</div><div class="dl-sub">Our story, mission & values</div></div></a>
-              <a href="about.html#directors" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-people-group"></i></div><div><div class="dl-title">Leadership Team</div><div class="dl-sub">Meet the founders & directors</div></div></a>
-              <a href="about.html#story" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-timeline"></i></div><div><div class="dl-title">Our Journey</div><div class="dl-sub">From Lagos to the world</div></div></a>
-              <div class="drop-sep"></div>
-              <a href="contact.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-briefcase"></i></div><div><div class="dl-title">Careers</div><div class="dl-sub">Build the future with us</div></div></a>
-              <a href="contact.html" class="drop-link"><div class="dl-ico"><i class="fa-solid fa-newspaper"></i></div><div><div class="dl-title">Press & Media</div><div class="dl-sub">News, assets & press kit</div></div></a>
-            </div>
+      <li class="has-mega">
+        <button class="nav-btn" aria-haspopup="true" aria-expanded="false">
+          Company <span class="chevron"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="mega-menu mega-sm">
+          <div class="mega-col">
+            <a href="about.html"><strong><i class="fa-solid fa-circle-info fa-fw" style="color:var(--accent);margin-right:6px"></i>About Us</strong><span>Our story, mission & values</span></a>
+            <a href="about.html#directors"><strong><i class="fa-solid fa-users fa-fw" style="color:var(--accent-2);margin-right:6px"></i>Leadership Team</strong><span>Meet the founders & directors</span></a>
+            <a href="about.html#journey"><strong><i class="fa-solid fa-timeline fa-fw" style="color:var(--accent-3);margin-right:6px"></i>Our Journey</strong><span>From Lagos to the world</span></a>
+            <hr>
+            <a href="contact.html"><strong><i class="fa-solid fa-briefcase fa-fw" style="color:#f59e0b;margin-right:6px"></i>Careers</strong><span>Build the future with us</span></a>
+            <a href="contact.html"><strong><i class="fa-solid fa-newspaper fa-fw" style="color:#9999bb;margin-right:6px"></i>Press & Media</strong><span>News, assets & press kit</span></a>
           </div>
         </div>
       </li>
 
-      <li class="nv-item"><a href="contact.html" class="nv-link">Contact</a></li>
+      <li><a href="contact.html" class="nav-link-plain">Contact</a></li>
     </ul>
 
-    <div class="nv-right">
-      <a href="contact.html" class="nv-cta-ghost">Partner With Us</a>
-      <a href="academy.html" class="nv-cta-solid"><i class="fa-solid fa-graduation-cap"></i> Enroll Now</a>
-      <button class="ham" id="hamBtn" onclick="openDrawer()"><span></span><span></span><span></span></button>
+    <div class="nav-divider"></div>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn-ghost"><i class="fa-solid fa-handshake"></i> Partner With Us</a>
+      <a href="academy.html" class="btn-primary"><i class="fa-solid fa-graduation-cap"></i> Enroll Now</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-links">
+      <details>
+        <summary>Products</summary>
+        <a href="solutions.html#voicescheduler"><i class="fa-solid fa-microphone-lines fa-fw"></i> AI Voice Scheduler</a>
+        <a href="solutions.html#inventopro"><i class="fa-solid fa-boxes-stacked fa-fw"></i> Invento Pro</a>
+        <a href="solutions.html#gesturerecog"><i class="fa-solid fa-hand-sparkles fa-fw"></i> Multi-Gesture Recognition</a>
+        <a href="solutions.html"><i class="fa-solid fa-grid-2 fa-fw"></i> All Industries</a>
+      </details>
+      <details>
+        <summary>Solutions</summary>
+        <a href="solutions.html"><i class="fa-solid fa-laptop-code fa-fw"></i> Custom Software</a>
+        <a href="solutions.html"><i class="fa-solid fa-cloud fa-fw"></i> Cloud & DevOps</a>
+        <a href="solutions.html"><i class="fa-solid fa-shield-halved fa-fw"></i> Cybersecurity</a>
+        <a href="solutions.html"><i class="fa-solid fa-brain fa-fw"></i> AI & Data Analytics</a>
+      </details>
+      <details>
+        <summary>Academy</summary>
+        <a href="academy.html"><i class="fa-solid fa-list fa-fw"></i> All Courses</a>
+        <a href="academy.html"><i class="fa-solid fa-fire fa-fw"></i> Bootcamps</a>
+        <a href="academy.html"><i class="fa-solid fa-building fa-fw"></i> Corporate Training</a>
+      </details>
+      <details>
+        <summary>Company</summary>
+        <a href="about.html"><i class="fa-solid fa-circle-info fa-fw"></i> About Us</a>
+        <a href="about.html#directors"><i class="fa-solid fa-users fa-fw"></i> Leadership</a>
+        <a href="contact.html"><i class="fa-solid fa-briefcase fa-fw"></i> Careers</a>
+      </details>
+      <a href="contact.html"><i class="fa-solid fa-envelope fa-fw" style="margin-right:6px;color:var(--accent)"></i>Contact</a>
+      <div class="mobile-btns">
+        <a href="contact.html" class="btn-ghost"><i class="fa-solid fa-handshake"></i> Partner With Us</a>
+        <a href="academy.html" class="btn-primary"><i class="fa-solid fa-graduation-cap"></i> Enroll Now</a>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- MOBILE DRAWER -->
-<div id="drawer">
-  <div class="dwr-head">
-    <img src="logo.png" alt="Nucleus Tech Solution"/>
-    <button class="dwr-close" onclick="closeDrawer()"><i class="fa-solid fa-xmark"></i></button>
-  </div>
-  <div class="dwr-body">
-    <a href="index.html" class="dwr-link active"><div class="d-ico"><i class="fa-solid fa-house"></i></div> Home</a>
-    <div class="dwr-sec">Products</div>
-    <a href="solutions.html#voicescheduler" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-microphone-lines"></i></div> AI Voice Scheduler</a>
-<a href="solutions.html#inventopro" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-boxes-stacked"></i></div> Invento Pro</a>
-<a href="solutions.html#gesturerecog" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-hand-pointer"></i></div> Multi-Gesture Recognition</a>
-    <div class="dwr-sec">Solutions</div>
-    <a href="solutions.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-code"></i></div> Custom Software</a>
-    <a href="solutions.html" class="dwr-link"><div class="d-ico"><i class="fa-brands fa-aws"></i></div> Cloud & DevOps</a>
-    <a href="solutions.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-shield-halved"></i></div> Cybersecurity</a>
-    <a href="solutions.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-brain"></i></div> AI & Data</a>
-    <div class="dwr-sec">Academy</div>
-    <a href="academy.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-graduation-cap"></i></div> All Courses</a>
-    <a href="academy.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-bolt"></i></div> Bootcamps</a>
-    <a href="academy.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-building"></i></div> Corporate Training</a>
-    <div class="dwr-sec">Company</div>
-    <a href="about.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-building"></i></div> About Us</a>
-    <a href="about.html#directors" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-people-group"></i></div> Leadership</a>
-    <a href="contact.html" class="dwr-link"><div class="d-ico"><i class="fa-solid fa-envelope"></i></div> Contact</a>
-  </div>
-  <div class="dwr-foot">
-    <a href="contact.html" class="nv-cta-ghost">Partner With Us</a>
-    <a href="academy.html" class="nv-cta-solid"><i class="fa-solid fa-graduation-cap"></i> Enroll Now</a>
-  </div>
-</div>
-
-<!-- ══ HERO ══ -->
-<section class="hero" id="home">
-  <div class="hero-bg"></div><div class="hero-dots"></div>
-  <div class="container" style="position:relative;z-index:2">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="hero-pulse"></div>
-        <span class="tag tag-blue"><i class="fa-solid fa-earth-americas"></i> Global Tech Startup</span>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge"><span class="dot"></span> Global Tech Startup</div>
+        <h1>Where Ideas <em>Evolve Into</em> Solutions.</h1>
+        <p class="hero-desc">Nucleus Tech Solution is a global technology startup combining world-class education, digital product development, and enterprise solutions — powering the next wave of digital innovation worldwide.</p>
+        <div class="hero-btns">
+          <a href="solutions.html" class="btn-primary btn-lg"><i class="fa-solid fa-arrow-right"></i> Explore Solutions</a>
+          <a href="about.html" class="btn-outline btn-lg"><i class="fa-solid fa-circle-info"></i> Who We Are</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat-item"><div class="num" data-count="3" data-suffix="">3</div><div class="label">Core Arms</div></div>
+          <div class="stat-item"><div class="num" data-count="100" data-suffix="+">100+</div><div class="label">Talent Pipeline</div></div>
+          <div class="stat-item"><div class="num" data-count="8" data-suffix="+">8+</div><div class="label">Courses</div></div>
+          <div class="stat-item"><div class="num"><i class="fa-solid fa-earth-africa" style="font-size:2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></i></div><div class="label">Global Reach</div></div>
+        </div>
       </div>
-      <h1>Where Ideas<br/><em>Evolve Into</em><br/>Solutions.</h1>
-      <p>Nucleus Tech Solution is a global technology startup combining world-class education, digital product development, and enterprise solutions — powering the next wave of digital innovation worldwide.</p>
-      <div class="hero-ctas">
-        <a href="solutions.html" class="btn btn-blue">Explore Solutions <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="about.html" class="btn btn-ghost">Who We Are</a>
+      <div class="hero-img" data-reveal>
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=85" alt="Team collaborating">
+        <div class="hero-overlay"></div>
+        <div class="float1">
+          <div class="ic"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div><strong>98% Placement Rate</strong><span>Graduate outcomes</span></div>
+        </div>
+        <div class="float2"><strong>Next</strong><span>Cohort Open</span></div>
       </div>
-      <div class="hero-metrics">
-        <div><div class="hm-num">3</div><div class="hm-label">Core Arms</div></div>
-        <div><div class="hm-num">100+</div><div class="hm-label">Talent Pipeline</div></div>
-        <div><div class="hm-num">8+</div><div class="hm-label">Courses</div></div>
-        <div><div class="hm-num">Global</div><div class="hm-label">Reach</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-right-bg"></div>
-    <img class="hero-photo" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=85" alt="Team"/>
-    <div class="hero-right-overlay">
-      <div class="hero-stat">98%</div>
-      <div class="hero-stat-lbl">Graduate Placement Rate</div>
-    </div>
-    <div class="hero-float hf1">
-      <div class="hf-ic blue"><i class="fa-solid fa-graduation-cap" style="color:var(--blue);font-size:1.2rem"></i></div>
-      <div><div class="hf-n blue">Next</div><div class="hf-l">Cohort Open</div></div>
-    </div>
-    <div class="hero-float hf2">
-      <div class="hf-ic sky"><i class="fa-solid fa-earth-americas" style="color:var(--sky);font-size:1.2rem"></i></div>
-      <div><div class="hf-n sky">Worldwide</div><div class="hf-l">Market Reach</div></div>
     </div>
   </div>
 </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-bar-inner">
-    <span class="trust-item"><i class="fa-solid fa-shield-halved"></i> Enterprise-Grade Security</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-globe"></i> Global Delivery</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-award"></i> ISO-Aligned Standards</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-clock"></i> 24/7 Support</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-graduation-cap"></i> Industry-Certified Courses</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-bolt"></i> Agile Delivery</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-brands fa-aws"></i> Multi-Cloud Infrastructure</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-handshake"></i> Strategic Partnerships</span><span class="trust-dot"></span>
-    <!-- duplicate for seamless loop -->
-    <span class="trust-item"><i class="fa-solid fa-shield-halved"></i> Enterprise-Grade Security</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-globe"></i> Global Delivery</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-award"></i> ISO-Aligned Standards</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-clock"></i> 24/7 Support</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-graduation-cap"></i> Industry-Certified Courses</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-bolt"></i> Agile Delivery</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-brands fa-aws"></i> Multi-Cloud Infrastructure</span><span class="trust-dot"></span>
-    <span class="trust-item"><i class="fa-solid fa-handshake"></i> Strategic Partnerships</span><span class="trust-dot"></span>
-  </div>
-</div>
-
-<!-- STATS STRIP -->
-<div class="strip">
-  <div class="container">
-    <div class="strip-grid">
-      <div class="strip-item reveal"><div class="strip-icon"><i class="fa-solid fa-trophy"></i></div><div class="strip-num">100+</div><div class="strip-label">Talent Pipeline</div></div>
-      <div class="strip-item reveal" style="transition-delay:.1s"><div class="strip-icon"><i class="fa-solid fa-earth-americas"></i></div><div class="strip-num">Global</div><div class="strip-label">Market Reach</div></div>
-      <div class="strip-item reveal" style="transition-delay:.2s"><div class="strip-icon"><i class="fa-solid fa-bolt"></i></div><div class="strip-num">3-in-1</div><div class="strip-label">Integrated Ecosystem</div></div>
-      <div class="strip-item reveal" style="transition-delay:.3s"><div class="strip-icon"><i class="fa-solid fa-rocket"></i></div><div class="strip-num">∞</div><div class="strip-label">Digital Value Created</div></div>
-    </div>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span><i class="fa-solid fa-lock" style="color:var(--accent-2);margin-right:8px"></i>Enterprise-Grade Security</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-globe" style="color:var(--accent-2);margin-right:8px"></i>Global Delivery</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-certificate" style="color:var(--accent-2);margin-right:8px"></i>ISO-Aligned Standards</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-headset" style="color:var(--accent-2);margin-right:8px"></i>24/7 Support</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-award" style="color:var(--accent-2);margin-right:8px"></i>Industry-Certified Courses</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-code-branch" style="color:var(--accent-2);margin-right:8px"></i>Agile Delivery</span>
+    <span class="dot">·</span>
+    <span><i class="fa-brands fa-aws" style="color:var(--accent-2);margin-right:8px"></i>Multi-Cloud Infrastructure</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-handshake" style="color:var(--accent-2);margin-right:8px"></i>Strategic Partnerships</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-lock" style="color:var(--accent-2);margin-right:8px"></i>Enterprise-Grade Security</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-globe" style="color:var(--accent-2);margin-right:8px"></i>Global Delivery</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-certificate" style="color:var(--accent-2);margin-right:8px"></i>ISO-Aligned Standards</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-headset" style="color:var(--accent-2);margin-right:8px"></i>24/7 Support</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-award" style="color:var(--accent-2);margin-right:8px"></i>Industry-Certified Courses</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-code-branch" style="color:var(--accent-2);margin-right:8px"></i>Agile Delivery</span>
+    <span class="dot">·</span>
+    <span><i class="fa-brands fa-aws" style="color:var(--accent-2);margin-right:8px"></i>Multi-Cloud Infrastructure</span>
+    <span class="dot">·</span>
+    <span><i class="fa-solid fa-handshake" style="color:var(--accent-2);margin-right:8px"></i>Strategic Partnerships</span>
   </div>
 </div>
 
 <!-- THREE ARMS -->
-<div class="arms-bg">
-  <div class="arms-intro reveal container">
-    <div class="tag tag-white" style="margin-bottom:16px">Three Operational Arms</div>
-    <h2 style="font-size:clamp(2rem,4vw,3.2rem);color:#fff;letter-spacing:-.025em">One Vision.<br/>Three Powerhouses.</h2>
-    <p style="color:rgba(255,255,255,.45);max-width:540px;margin:14px auto 0;font-size:1rem;line-height:1.78">A fully integrated ecosystem where every arm amplifies the others — creating compounding value for learners, clients, and partners worldwide.</p>
-  </div>
-  <div class="arms-grid">
-    <div class="arm-card reveal">
-      <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=700&q=80" alt="Nucleus Academy"/>
-      <div class="arm-ov">
-        <div class="arm-num c1">01 · Academy</div>
-        <div class="arm-title">Nucleus Academy</div>
-        <p class="arm-desc">A next-generation tech school for the global economy. Bootcamps, diplomas, and corporate upskilling — training the world's boldest digital talent.</p>
-        <a href="academy.html" class="arm-cta">Explore Academy <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </div>
-    <div class="arm-card reveal" style="transition-delay:.12s">
-      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=700&q=80" alt="Nucleus Studios"/>
-      <div class="arm-ov">
-        <div class="arm-num c2">02 · Studios</div>
-        <div class="arm-title">Nucleus Studios</div>
-        <p class="arm-desc">A product innovation hub building scalable digital platforms across FinTech, HealthTech, AgriTech & EdTech for global markets.</p>
-        <a href="solutions.html" class="arm-cta">View Products <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </div>
-    <div class="arm-card reveal" style="transition-delay:.24s">
-      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80" alt="Nucleus Solutions"/>
-      <div class="arm-ov">
-        <div class="arm-num c3">03 · Solutions</div>
-        <div class="arm-title">Nucleus Solutions</div>
-        <p class="arm-desc">Smart, customized digital services — cloud architecture, cybersecurity, custom software — for enterprises operating at global scale.</p>
-        <a href="contact.html" class="arm-cta">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PRODUCTS PREVIEW -->
-<section class="sec products-bg">
+<section class="section">
   <div class="container">
-    <div class="sec-hd reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px">
-      <div>
-        <div class="tag tag-blue">Digital Products · Nucleus Studios</div>
-        <h2 style="margin-bottom:0">Real-World Platforms<br/>We're Building</h2>
-      </div>
-      <a href="solutions.html" class="btn btn-ghost btn-sm">View All Products <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="section-header" data-reveal>
+      <span class="eyebrow">Three Operational Arms</span>
+      <h2>One Vision. <em>Three Powerhouses.</em></h2>
+      <p>A fully integrated ecosystem where every arm amplifies the others — creating compounding value for learners, clients, and partners worldwide.</p>
     </div>
-    <div class="products-grid">
-      
-      <div class="prod-card reveal">
-        <div class="prod-top" style="background:linear-gradient(135deg,#0f2d5c,#1a78c2)">
-          <i class="fa-solid fa-microphone-lines prod-icon-big" style="color:rgba(255,255,255,.85)"></i>
-        </div>
-        <div class="prod-body">
-          <div class="prod-sector">Productivity · AI</div>
-          <div class="prod-title">AI Voice Scheduler</div>
-          <div class="prod-desc">An intelligent AI voice assistant that schedules, reschedules, and manages meetings for business professionals — hands-free, context-aware, always on.</div>
-          <div class="prod-tags"><span class="prod-tag">Voice AI</span> <span class="prod-tag">Scheduling</span> <span class="prod-tag">Business</span></div>
+    <div class="arms-grid">
+      <div class="arm-card" data-reveal data-reveal-delay="1">
+        <div class="arm-img"><img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=700&q=80" alt="Nucleus Academy"></div>
+        <div class="arm-body">
+          <div class="arm-num"><i class="fa-solid fa-graduation-cap" style="margin-right:6px"></i>01 · Academy</div>
+          <h3>Nucleus Academy</h3>
+          <p>A next-generation tech school for the global economy. Bootcamps, diplomas, and corporate upskilling — training the world's boldest digital talent.</p>
+          <a href="academy.html" class="arm-link">Explore Academy <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="prod-card reveal" style="transition-delay:.1s">
-        <div class="prod-top" style="background:linear-gradient(135deg,#0a2d1a,#1a7c3e)">
-          <i class="fa-solid fa-boxes-stacked prod-icon-big" style="color:rgba(255,255,255,.85)"></i>
-        </div>
-        <div class="prod-body">
-          <div class="prod-sector">Inventory · SaaS</div>
-          <div class="prod-title">Invento Pro</div>
-          <div class="prod-desc">A powerful inventory management platform built for businesses of all sizes — track stock, manage warehouses, forecast demand, and automate reordering.</div>
-          <div class="prod-tags"><span class="prod-tag">Inventory</span> <span class="prod-tag">SaaS</span> <span class="prod-tag">Operations</span></div>
+      <div class="arm-card" data-reveal data-reveal-delay="2">
+        <div class="arm-img"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=700&q=80" alt="Nucleus Studios"></div>
+        <div class="arm-body">
+          <div class="arm-num"><i class="fa-solid fa-rocket" style="margin-right:6px"></i>02 · Studios</div>
+          <h3>Nucleus Studios</h3>
+          <p>A product innovation hub building scalable digital platforms across FinTech, HealthTech, AgriTech & EdTech for global markets.</p>
+          <a href="solutions.html" class="arm-link">View Products <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="prod-card reveal" style="transition-delay:.2s">
-        <div class="prod-top" style="background:linear-gradient(135deg,#2d0f50,#7b2fc2)">
-          <i class="fa-solid fa-hand-pointer prod-icon-big" style="color:rgba(255,255,255,.85)"></i>
-        </div>
-        <div class="prod-body">
-          <div class="prod-sector">HCI · Computer Vision</div>
-          <div class="prod-title">Multi-Gesture Recognition</div>
-          <div class="prod-desc">A cutting-edge multi-gesture recognition platform enabling touchless, intuitive control of devices, interfaces, and environments through hand and body gestures.</div>
-          <div class="prod-tags"><span class="prod-tag">Computer Vision</span> <span class="prod-tag">HCI</span> <span class="prod-tag">Touchless</span></div>
+      <div class="arm-card" data-reveal data-reveal-delay="3">
+        <div class="arm-img"><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80" alt="Nucleus Solutions"></div>
+        <div class="arm-body">
+          <div class="arm-num"><i class="fa-solid fa-building-columns" style="margin-right:6px"></i>03 · Solutions</div>
+          <h3>Nucleus Solutions</h3>
+          <p>Smart, customized digital services — cloud architecture, cybersecurity, custom software — for enterprises operating at global scale.</p>
+          <a href="contact.html" class="arm-link">Get a Quote <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DIRECTORS PREVIEW -->
-<div class="directors-bg">
+<!-- PRODUCTS PREVIEW -->
+<section class="section" style="padding-top:0">
   <div class="container">
-    <div class="sec-hd center reveal">
-      <div class="tag tag-white">Leadership</div>
-      <h2 style="color:#fff">Driven by Visionaries</h2>
-      <p style="color:rgba(255,255,255,.44);margin:0 auto">The minds shaping the global digital economy — one breakthrough at a time.</p>
+    <div class="section-header" data-reveal>
+      <span class="eyebrow"><i class="fa-solid fa-cubes" style="margin-right:6px"></i>Digital Products · Nucleus Studios</span>
+      <h2>Real-World Platforms <em>We're Building</em></h2>
     </div>
-    <div class="directors-grid">
-      <div class="dir-card reveal">
-        <div class="dir-photo" style="background-image:url('./wonder.png'); background-size: cover;">
-          <div class="dir-photo-placeholder">
-            <!-- <i class="fa-solid fa-user-tie" style="font-size:4rem;color:rgba(42,176,232,.4)"></i> -->
-            <img src="wonder.png" width="300px" height="300px">
-          </div>
-        </div>
-        <div class="dir-body">
-          <div class="dir-name">Bassey Wonder P</div>
-          <div class="dir-pos"><i class="fa-solid fa-circle-dot" style="font-size:.55rem;margin-right:4px"></i>Chief Technology Officer</div>
-          <div class="dir-bio">Full-stack architect and systems thinker driving engineering excellence across all Nucleus products and technology arms.</div>
-          <div class="dir-phone"><i class="fa-solid fa-phone"></i> <a href="tel:08140369543">08140369543</a></div>
-          <div class="dir-socials"><a href="#" class="dir-soc"><i class="fa-brands fa-linkedin-in"></i></a><a href="#" class="dir-soc"><i class="fa-brands fa-github"></i></a><a href="#" class="dir-soc"><i class="fa-brands fa-x-twitter"></i></a></div>
+    <div>
+      <div class="product-row" data-reveal>
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1589254065878-42c9da997008?w=800&q=80" alt="AI Voice Scheduler"></div>
+        <div class="product-content">
+          <span class="tag"><i class="fa-solid fa-microphone-lines"></i> Productivity · AI</span>
+          <h3>AI Voice Scheduler</h3>
+          <p>An intelligent AI voice assistant that schedules, reschedules, and manages meetings for business professionals — hands-free, context-aware, always on.</p>
+          <div class="ptags"><span class="ptag">Voice AI</span><span class="ptag">Scheduling</span><span class="ptag">Business</span></div>
+          <a href="solutions.html#voicescheduler" class="btn-primary"><i class="fa-solid fa-arrow-right"></i> Learn More</a>
         </div>
       </div>
-      <div class="dir-card reveal" style="transition-delay:.1s">
-        <div class="dir-photo">
-          <div class="dir-photo-placeholder">
-            <i class="fa-solid fa-user-tie" style="font-size:4rem;color:rgba(42,176,232,.4)"></i>
-          </div>
+      <div class="product-row rev" data-reveal>
+        <div class="product-content">
+          <span class="tag tag-cyan"><i class="fa-solid fa-boxes-stacked"></i> Inventory · SaaS</span>
+          <h3>Invento Pro</h3>
+          <p>A powerful inventory management platform built for businesses of all sizes — track stock, manage warehouses, forecast demand, and automate reordering.</p>
+          <div class="ptags"><span class="ptag">Inventory</span><span class="ptag">SaaS</span><span class="ptag">Operations</span></div>
+          <a href="solutions.html#inventopro" class="btn-primary"><i class="fa-solid fa-arrow-right"></i> Learn More</a>
         </div>
-        <div class="dir-body">
-          <div class="dir-name">Johnie Andrew</div>
-          <div class="dir-pos"><i class="fa-solid fa-circle-dot" style="font-size:.55rem;margin-right:4px"></i>Chief Financial Officer</div>
-          <div class="dir-bio">Chief Financial Officer overseeing Nucleus' financial strategy, budgeting, investment planning, risk management, and sustainable growth across all business units.</div>
-          <div class="dir-phone"><i class="fa-solid fa-phone"></i> <a href="tel:08163672532">08163672532</a></div>
-          <div class="dir-socials"><a href="#" class="dir-soc"><i class="fa-brands fa-linkedin-in"></i></a><a href="#" class="dir-soc"><i class="fa-brands fa-x-twitter"></i></a></div>
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80" alt="Invento Pro"></div>
+      </div>
+      <div class="product-row" data-reveal>
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&q=80" alt="Multi-Gesture Recognition"></div>
+        <div class="product-content">
+          <span class="tag tag-violet"><i class="fa-solid fa-hand-sparkles"></i> HCI · Computer Vision</span>
+          <h3>Multi-Gesture Recognition</h3>
+          <p>A cutting-edge multi-gesture recognition platform enabling touchless, intuitive control of devices, interfaces, and environments through hand and body gestures.</p>
+          <div class="ptags"><span class="ptag">Computer Vision</span><span class="ptag">HCI</span><span class="ptag">Touchless</span></div>
+          <a href="solutions.html#gesturerecog" class="btn-primary"><i class="fa-solid fa-arrow-right"></i> Learn More</a>
         </div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:40px"><a href="about.html" class="btn btn-ghost-white">Meet the Full Team <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="solutions.html" class="btn-outline btn-lg"><i class="fa-solid fa-grid-2"></i> View All Products</a>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- LEADERSHIP PREVIEW -->
+<section class="section" style="background:var(--dark)">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="eyebrow"><i class="fa-solid fa-star" style="margin-right:6px"></i>Leadership</span>
+      <h2>Driven by <em>Visionaries</em></h2>
+      <p>The minds shaping the global digital economy — one breakthrough at a time.</p>
+    </div>
+    <div class="leaders-grid">
+      <div class="leader-card" data-reveal data-reveal-delay="1">
+        <div class="l-avatar"><img src="http://nucleaus.schooldevs.com/john.png" alt="Johnie Andrew" onerror="this.src='https://ui-avatars.com/api/?name=Johnie+Andrew&background=6c5ce7&color=fff&size=68'"></div>
+        <div class="l-info">
+          <h4>Johnie Andrew</h4>
+          <div class="role">Chief Financial Officer</div>
+          <!--<div class="ph"><i class="fa-solid fa-phone"></i> 08163672532</div>-->
+        </div>
+      </div>
+      <div class="leader-card" data-reveal data-reveal-delay="2">
+        <div class="l-avatar"><img src="http://nucleaus.schooldevs.com/wondr.jpg" alt="Bassey Wonder P" onerror="this.src='https://ui-avatars.com/api/?name=Bassey+Wonder&background=a855f7&color=fff&size=68'"></div>
+        <div class="l-info">
+          <h4>Bassey Wonder P</h4>
+          <div class="role">Chief Technology Officer</div>
+          <!--<div class="ph"><i class="fa-solid fa-phone"></i> 08140369543</div>-->
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="about.html#directors" class="btn-outline"><i class="fa-solid fa-users"></i> Meet the Full Team</a>
+    </div>
+  </div>
+</section>
 
 <!-- VISION -->
-<div class="vision-sec">
+<section class="section">
   <div class="container">
-    <div class="sec-hd center reveal">
-      <div class="tag tag-white">Our North Star</div>
-      <h2 style="color:#fff">Engineered for the<br/>Global Digital Revolution</h2>
+    <div class="section-header" data-reveal>
+      <span class="eyebrow"><i class="fa-solid fa-compass" style="margin-right:6px"></i>Our North Star</span>
+      <h2>Engineered for the <em>Global Digital Revolution</em></h2>
     </div>
     <div class="vision-grid">
-      <div class="vis-block reveal"><div class="vis-icon"><i class="fa-solid fa-eye"></i></div><div class="vis-title">Our Vision</div><div class="vis-desc">To be the world's most impactful technology startup — training talent, building products, and delivering solutions that define the future of digital innovation globally.</div></div>
-      <div class="vis-block reveal" style="transition-delay:.1s"><div class="vis-icon"><i class="fa-solid fa-compass"></i></div><div class="vis-title">Our Mission</div><div class="vis-desc">To empower individuals, businesses, and institutions worldwide with world-class digital tools, talent, and infrastructure — accelerating the global digital transformation.</div></div>
-      <div class="vis-block reveal" style="transition-delay:.2s"><div class="vis-icon"><i class="fa-solid fa-star"></i></div><div class="vis-title">Our Values</div><div class="vis-desc">Innovation without limits. Integrity without compromise. Impact without borders. Excellence in everything we create, teach, and deliver across every market.</div></div>
+      <div class="vision-card" data-reveal data-reveal-delay="1">
+        <div class="vlabel"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Our Vision</div>
+        <h4 style="margin-bottom:12px">To be the world's most impactful technology startup</h4>
+        <p>Training talent, building products, and delivering solutions that define the future of digital innovation globally.</p>
+      </div>
+      <div class="vision-card" data-reveal data-reveal-delay="2">
+        <div class="vlabel"><i class="fa-solid fa-bullseye" style="margin-right:6px"></i>Our Mission</div>
+        <h4 style="margin-bottom:12px">Empowering individuals, businesses & institutions</h4>
+        <p>World-class digital tools, talent, and infrastructure — accelerating the global digital transformation worldwide.</p>
+      </div>
+      <div class="vision-card" data-reveal data-reveal-delay="3">
+        <div class="vlabel"><i class="fa-solid fa-star" style="margin-right:6px"></i>Our Values</div>
+        <h4 style="margin-bottom:12px">Innovation. Integrity. Impact. Excellence.</h4>
+        <p>Excellence in everything we create, teach, and deliver across every market — without limits or compromise.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- CTA -->
-<div class="cta-banner">
+<section class="section" style="padding-top:0">
   <div class="container">
-    <h2 class="reveal">Ready to Build the Future?</h2>
-    <p class="reveal">Whether you're enrolling in the Academy, building a product, or seeking enterprise solutions — Nucleus Tech is your global strategic partner.</p>
-    <div class="cta-row reveal">
-      <a href="academy.html" class="btn btn-ghost-white"><i class="fa-solid fa-graduation-cap"></i> Start Learning</a>
-      <a href="contact.html" class="btn" style="background:#fff;color:var(--blue);padding:14px 32px;border-radius:8px;font-size:.93rem;font-weight:700"><i class="fa-solid fa-handshake"></i> Partner With Us</a>
+    <div class="cta-band" data-reveal>
+      <h2>Ready to Build the <em>Future?</em></h2>
+      <p>Whether you're enrolling in the Academy, building a product, or seeking enterprise solutions — Nucleus Tech is your global strategic partner.</p>
+      <div class="btn-row">
+        <a href="academy.html" class="btn-primary btn-lg"><i class="fa-solid fa-graduation-cap"></i> Start Learning</a>
+        <a href="contact.html" class="btn-outline btn-lg"><i class="fa-solid fa-handshake"></i> Partner With Us</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.png" alt="Nucleus Tech Solution"/></div>
+        <div class="footer-logo">
+          <img src="http://nucleaus.schooldevs.com/logo.png" alt="Nucleus Tech Solution"
+               onerror="this.onerror=null;this.style.display='none';this.parentElement.innerHTML+='<span style=\'font-family:Syne,sans-serif;font-weight:800;font-size:1.2rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text\'>Nucleus Tech Solution</span>'">
+        </div>
         <p>Where ideas evolve into solutions. A global technology startup educating, building, and delivering at scale.</p>
-        <div class="social-row">
-          <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
-          <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h5>Company</h5>
         <a href="about.html">About Us</a>
         <a href="about.html#directors">Leadership</a>
-        <a href="about.html#story">Our Story</a>
+        <a href="about.html#journey">Our Story</a>
         <a href="contact.html">Careers</a>
       </div>
       <div class="footer-col">
-        <h4>Solutions</h4>
+        <h5>Solutions</h5>
         <a href="solutions.html">Digital Products</a>
         <a href="solutions.html">Enterprise Services</a>
         <a href="solutions.html">FinTech</a>
         <a href="solutions.html">HealthTech</a>
       </div>
       <div class="footer-col">
-        <h4>Academy</h4>
+        <h5>Academy</h5>
         <a href="academy.html">All Courses</a>
         <a href="academy.html">Bootcamp</a>
         <a href="academy.html">Corporate Training</a>
@@ -731,7 +518,7 @@ footer{background:var(--dark);padding:68px 0 28px}
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2025 Nucleus Tech Solution Ltd. All rights reserved.</div>
+      <p>© 2025 Nucleus Tech Solution Ltd. All rights reserved.</p>
       <div class="footer-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
@@ -741,27 +528,6 @@ footer{background:var(--dark);padding:68px 0 28px}
   </div>
 </footer>
 
-<script>
-const navEl=document.getElementById('nav');
-window.addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',window.scrollY>20)},{passive:true});
-function toggleDrop(id){
-  const item=document.getElementById(id),isOpen=item.classList.contains('open');
-  document.querySelectorAll('.nv-item.open').forEach(el=>{if(el.id!==id)el.classList.remove('open')});
-  item.classList.toggle('open',!isOpen);
-}
-document.addEventListener('click',e=>{if(!e.target.closest('.nv-item'))document.querySelectorAll('.nv-item.open').forEach(el=>el.classList.remove('open'))});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.nv-item.open').forEach(el=>el.classList.remove('open'))});
-function switchTab(btn,id){
-  const wrap=btn.closest('.mega-wrap');
-  wrap.querySelectorAll('.mega-tab').forEach(t=>t.classList.remove('active'));
-  wrap.querySelectorAll('.mega-content').forEach(c=>c.classList.remove('active'));
-  btn.classList.add('active');
-  const t=wrap.querySelector('#'+id);if(t)t.classList.add('active');
-}
-function openDrawer(){document.getElementById('drawer').classList.add('open');document.body.style.overflow='hidden';const s=document.getElementById('hamBtn').querySelectorAll('span');s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)';}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.body.style.overflow='';document.getElementById('hamBtn').querySelectorAll('span').forEach(x=>{x.style.transform='';x.style.opacity=''});}
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('up');obs.unobserve(x.target)}})},{threshold:.07,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
-</script>
+<script src="shared.js"></script>
 </body>
 </html>
